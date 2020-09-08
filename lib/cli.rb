@@ -16,5 +16,13 @@ attr_accessor :all_locations
         @all_location.uniq
     end
 
+    def print_locations
+        all_location.each.with_index(1) do |location,index|
+            puts "#{index}. #{location}."
+        end
+        
+    end
+
+
 end
 binding.pry
