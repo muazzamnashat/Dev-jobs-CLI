@@ -1,2 +1,5 @@
 #!/usr/bin/env ruby
+require_relative 'job'
+require 'rest-client'
+require 'json'
 require 'pry'
