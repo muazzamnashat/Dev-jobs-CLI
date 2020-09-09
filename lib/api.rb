@@ -1,6 +1,8 @@
 require 'rest-client'
 require 'json'
 require 'pry'
+require 'net/http'
+require 'open-uri'
 require_relative 'job'
 
 class API

@@ -26,7 +26,7 @@ attr_accessor :all_location, :all_language
 
     def all_languages
         @all_language=[]
-        API.get_list
+        # API.get_list
         Job.all.each do |job|
         
         if job.description.include?("Python")
@@ -56,17 +56,38 @@ attr_accessor :all_location, :all_language
     end
 
     def print_by_location_and_language(location,language)
-        Job.all.each do |job|
+        Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
             if job.location == location && job.description.include?(language)
+
+            puts "The job number is #{index}"
             puts "#{job.title}"
-            puts "The name of the company is #{job.company}."
-            puts "This is a #{job.type} job and the location is #{job.location}."
-            puts "To know more about the company, you can visit #{job.company_url}"
-            puts "----------------------------------------------------------------------------"
+            puts "This is a #{job.type} position "
+            puts "The name of the company is #{job.company}and the location will be #{job.location}."
+            puts "You can learn about the company here : #{job.company_url}"
+            puts "To know more about the position please click here: #{job.url}"
+            puts "--------------------------------------------------------------------------------------------------------------------------------"
+            puts "--------------------------------------------------------------------------------------------------------------------------------" 
+            puts "--------------------------------------------------------------------------------------------------------------------------------"
             end
         end
         
     end
 
+    def read_description(num)
+        Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
+            # binding.pry
+            if index == num
+                puts "#{job.description}".gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>']), ' ')
+               #.gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>']), ' ')
+            end
+        end
+    end
+
 end
+
+new=CLI.new
+new.print_locations
+# new.print_by_location_and_language("Remote","C")
+new.read_description(22)
 binding.pry
+
