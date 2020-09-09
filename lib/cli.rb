@@ -55,14 +55,18 @@ attr_accessor :all_location, :all_language
         end   
     end
 
-def print_by_location_and_language(location,language)
-    Job.all.each do |job|
-        if job.location == location && job.description.include?(language)
-        puts "The location is #{job.location}"
+    def print_by_location_and_language(location,language)
+        Job.all.each do |job|
+            if job.location == location && job.description.include?(language)
+            puts "#{job.title}"
+            puts "The name of the company is #{job.company}."
+            puts "This is a #{job.type} job and the location is #{job.location}."
+            puts "To know more about the company, you can visit #{job.company_url}"
+            puts "----------------------------------------------------------------------------"
+            end
         end
+        
     end
-    
-end
 
 end
 binding.pry
