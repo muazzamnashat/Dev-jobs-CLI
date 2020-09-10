@@ -3,7 +3,7 @@ require_relative 'api'
 require 'pry'
 
 class CLI
-attr_accessor :all_location, :all_language
+attr_accessor :all_location, :all_language ,:indx
 
     def all_locations
         @all_location=[]
@@ -56,16 +56,24 @@ attr_accessor :all_location, :all_language
     end
 
     def print_by_location_and_language(location,language)
+        @indx=[]
         Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
-            if job.location == location && job.description.include?(language)
-
+            # binding.pry
+           
+            # puts "Job not available for this particular language.Please try with a different one"  if !job.location == location || !job.description.include?(language)
+            if !job.location == location || !job.description.include?(language)
+                puts "Job not available for this particular language.Please try with a different one"
+                break
+            elsif job.location == location && job.description.include?(language)
+            indx << index
+            puts "--------------------------------------------------------------------------------------------------------------------------------"
+            puts "--------------------------------------------------------------------------------------------------------------------------------"
             puts "The job number is #{index}"
             puts "#{job.title}"
             puts "This is a #{job.type} position "
             puts "The name of the company is #{job.company}and the location will be #{job.location}."
             puts "You can learn about the company here : #{job.company_url}"
             puts "To know more about the position please click here: #{job.url}"
-            puts "--------------------------------------------------------------------------------------------------------------------------------"
             puts "--------------------------------------------------------------------------------------------------------------------------------" 
             puts "--------------------------------------------------------------------------------------------------------------------------------"
             end
@@ -75,19 +83,83 @@ attr_accessor :all_location, :all_language
 
     def read_description(num)
         Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
-            # binding.pry
             if index == num
+                puts "--------------------------------------------------------------------------------------------------------------------------------"
+                puts "--------------------------------------------------------------------------------------------------------------------------------"
                 puts "#{job.description}".gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>']), ' ')
-               #.gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>']), ' ')
+                puts "--------------------------------------------------------------------------------------------------------------------------------"
+                puts "--------------------------------------------------------------------------------------------------------------------------------"
+
             end
         end
     end
 
+    def print_appropriate_language(input_loc,input_lan)
+        puts "The list is loading please wait"
+                print_by_location_and_language(input_loc,input_lan)
+                puts "To read job description, select the job number"
+                input_jn=gets.strip.to_i
+                    until indx.include?(input_jn)
+                        puts "Please select a valid number!"
+                        input_jn=gets.strip.to_i
+                    end
+                    read_description(input_jn)
+                    puts "Do you want to search again? (y/n)"
+                    input=gets.strip
+                    if input.downcase == "y"
+                        play
+                    elsif input.downcase == "n"
+                        puts "Thank you !"
+                    end
+                
+    end
+
+
+    def play
+        
+        puts "Here are the available locations :"
+        puts "The list is loading please wait"
+        print_locations
+        puts "Please type in your preferred location"
+        input_loc= gets.strip.capitalize
+
+        if all_location.include?(input_loc)
+            puts "Okay cool! Now, I'll load in the available programming languages"
+            print_languages
+            puts "Please type your favourite language"
+            input_lan= gets.strip.capitalize
+    
+            if all_language.include?(input_lan)
+                print_appropriate_language(input_loc,input_lan)
+            else
+                puts "Please type an appropriate language!"
+                input_lan= gets.strip.capitalize
+                if all_language.include?(input_lan)
+                    print_appropriate_language(input_loc,input_lan)
+                    
+                else
+                    puts "Please type an appropriate language!"
+                    input_lan= gets.strip.capitalize
+                    until all_language.include?(input_lan)
+                        puts "Please type an appropriate language!"
+                        input_lan= gets.strip.capitalize
+                    end
+                    print_appropriate_language(input_loc,input_lan)
+    
+                end 
+                
+            end
+            
+        else
+            puts "Please type an appropriate location!"
+            play
+            
+        end
+
+    end
+
 end
 
-new=CLI.new
-new.print_locations
-# new.print_by_location_and_language("Remote","C")
-new.read_description(22)
-binding.pry
+
+
 
