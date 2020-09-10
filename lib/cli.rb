@@ -125,26 +125,13 @@ attr_accessor :all_location, :all_language ,:indx
             puts "Please type your favourite language"
             input_lan= gets.strip.capitalize
     
-            if all_language.include?(input_lan) 
-                if check?(input_loc,input_lan)   ##using check? so that we dont show blank result when there is a mismatch
-                    print_appropriate_language(input_loc,input_lan)
-                else
-                    puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
-                    sleep(3)
-                    play
-                end
+            if all_language.include?(input_lan)  
+                print_only_when_match(input_loc,input_lan)
             else
                 puts "Please type an appropriate language!"
                 input_lan= gets.strip.capitalize
                 if all_language.include?(input_lan)
-                    if check?(input_loc,input_lan)
-                            print_appropriate_language(input_loc,input_lan)
-                    else
-                            puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
-                            sleep(3)
-                            play
-                    end
-                    
+                    print_only_when_match(input_loc,input_lan)
                 else
                     puts "Please type an appropriate language!"
                     input_lan= gets.strip.capitalize
@@ -152,16 +139,7 @@ attr_accessor :all_location, :all_language ,:indx
                         puts "Please type an appropriate language!".colorize(:red)
                         input_lan= gets.strip.capitalize
                     end
-
-                    if check?(input_loc,input_lan)
-                        print_appropriate_language(input_loc,input_lan)
-                    else
-                            puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
-                            sleep(3)
-                            play
-                    end
-                    
-    
+                    print_only_when_match(input_loc,input_lan)
                 end 
                 
             end
@@ -176,12 +154,21 @@ attr_accessor :all_location, :all_language ,:indx
     end
 
 
-
     def check?(location,language)
         Job.all.sort_by{|name|name.title}.any? do |job|
             job.location == location && job.description.include?(language)
         end
 
+    end
+
+    def print_only_when_match(input_loc,input_lan)
+        if check?(input_loc,input_lan)
+            print_appropriate_language(input_loc,input_lan)
+        else
+                puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
+                sleep(3)
+                play
+        end
     end
 
 
