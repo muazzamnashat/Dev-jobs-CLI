@@ -1,4 +1,5 @@
 class Job
+    
 attr_accessor :type, :company, :url, :company_url, :location, :title, :description, :how_to_apply
 
     @@all =[]
