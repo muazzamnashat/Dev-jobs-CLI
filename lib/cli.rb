@@ -96,7 +96,7 @@ attr_accessor :all_location, :all_language ,:indx
                 input_jn=gets.strip.to_i
 
                     until indx.include?(input_jn)
-                        puts "Please select a valid number!"
+                        puts "Please select a valid number!".colorize(:red)
                         input_jn=gets.strip.to_i
                     end
                 read_description(input_jn)
@@ -129,7 +129,8 @@ attr_accessor :all_location, :all_language ,:indx
                 if check?(input_loc,input_lan)   ##using check? so that we dont show blank result when there is a mismatch
                     print_appropriate_language(input_loc,input_lan)
                 else
-                    puts "Job is not available for this particular selection,sorry! Let's try again."
+                    puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
+                    sleep(3)
                     play
                 end
             else
@@ -139,7 +140,8 @@ attr_accessor :all_location, :all_language ,:indx
                     if check?(input_loc,input_lan)
                             print_appropriate_language(input_loc,input_lan)
                     else
-                            puts "Job is not available for this particular selection,sorry! Let's try again."
+                            puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
+                            sleep(3)
                             play
                     end
                     
@@ -147,14 +149,15 @@ attr_accessor :all_location, :all_language ,:indx
                     puts "Please type an appropriate language!"
                     input_lan= gets.strip.capitalize
                     until all_language.include?(input_lan)
-                        puts "Please type an appropriate language!"
+                        puts "Please type an appropriate language!".colorize(:red)
                         input_lan= gets.strip.capitalize
                     end
 
                     if check?(input_loc,input_lan)
                         print_appropriate_language(input_loc,input_lan)
                     else
-                            puts "Job is not available for this particular selection,sorry! Let's try again."
+                            puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
+                            sleep(3)
                             play
                     end
                     
@@ -164,7 +167,8 @@ attr_accessor :all_location, :all_language ,:indx
             end
             
         else
-            puts "Please type an appropriate location!"
+            puts "Please type an appropriate location!".colorize(:red)
+            sleep(3)
             play
             
         end
@@ -179,8 +183,6 @@ attr_accessor :all_location, :all_language ,:indx
         end
 
     end
-
-
 
 
 end
