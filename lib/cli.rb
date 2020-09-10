@@ -3,7 +3,7 @@ require_relative 'api'
 require 'pry'
 
 class CLI
-attr_accessor :all_location, :all_language ,:indx
+attr_accessor :all_location, :all_language ,:job_number
 
     def all_locations
         @all_location=[]
@@ -55,11 +55,11 @@ attr_accessor :all_location, :all_language ,:indx
     end
 
     def print_by_location_and_language(location,language)
-        @indx=[]
+        @job_number=[]
         Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
            
             if job.location == location && job.description.include?(language)
-            indx << index
+            job_number << index
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
             puts "The job number is #{index}"
@@ -95,7 +95,7 @@ attr_accessor :all_location, :all_language ,:indx
                 puts "To read job description, select the job number"
                 input_jn=gets.strip.to_i
 
-                    until indx.include?(input_jn)
+                    until job_number.include?(input_jn)
                         puts "Please select a valid number!".colorize(:red)
                         input_jn=gets.strip.to_i
                     end
