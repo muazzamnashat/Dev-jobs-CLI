@@ -26,7 +26,6 @@ attr_accessor :all_location, :all_language ,:indx
 
     def all_languages
         @all_language=[]
-        # API.get_list
         Job.all.each do |job|
         
         if job.description.include?("Python")
@@ -58,13 +57,8 @@ attr_accessor :all_location, :all_language ,:indx
     def print_by_location_and_language(location,language)
         @indx=[]
         Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
-            # binding.pry
            
-            # puts "Job not available for this particular language.Please try with a different one"  if !job.location == location || !job.description.include?(language)
-            if !job.location == location || !job.description.include?(language)
-                puts "Job not available for this particular language.Please try with a different one"
-                break
-            elsif job.location == location && job.description.include?(language)
+            if job.location == location && job.description.include?(language)
             indx << index
             puts "--------------------------------------------------------------------------------------------------------------------------------"
             puts "--------------------------------------------------------------------------------------------------------------------------------"
@@ -77,6 +71,7 @@ attr_accessor :all_location, :all_language ,:indx
             puts "--------------------------------------------------------------------------------------------------------------------------------" 
             puts "--------------------------------------------------------------------------------------------------------------------------------"
             end
+
         end
         
     end
@@ -86,7 +81,7 @@ attr_accessor :all_location, :all_language ,:indx
             if index == num
                 puts "--------------------------------------------------------------------------------------------------------------------------------"
                 puts "--------------------------------------------------------------------------------------------------------------------------------"
-                puts "#{job.description}".gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>']), ' ')
+                puts "#{job.description}".gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>','<strong>','</strong>']), ' ')
                 puts "--------------------------------------------------------------------------------------------------------------------------------"
                 puts "--------------------------------------------------------------------------------------------------------------------------------"
 
@@ -99,13 +94,15 @@ attr_accessor :all_location, :all_language ,:indx
                 print_by_location_and_language(input_loc,input_lan)
                 puts "To read job description, select the job number"
                 input_jn=gets.strip.to_i
+
                     until indx.include?(input_jn)
                         puts "Please select a valid number!"
                         input_jn=gets.strip.to_i
                     end
-                    read_description(input_jn)
-                    puts "Do you want to search again? (y/n)"
-                    input=gets.strip
+                read_description(input_jn)
+                puts "Do you want to search again? (y/n)"
+                input=gets.strip
+
                     if input.downcase == "y"
                         play
                     elsif input.downcase == "n"
@@ -113,7 +110,6 @@ attr_accessor :all_location, :all_language ,:indx
                     end
                 
     end
-
 
     def play
         
@@ -129,13 +125,23 @@ attr_accessor :all_location, :all_language ,:indx
             puts "Please type your favourite language"
             input_lan= gets.strip.capitalize
     
-            if all_language.include?(input_lan)
-                print_appropriate_language(input_loc,input_lan)
+            if all_language.include?(input_lan) 
+                if check?(input_loc,input_lan)   ##using check? so that we dont show blank result when there is a mismatch
+                    print_appropriate_language(input_loc,input_lan)
+                else
+                    puts "Job is not available for this particular selection,sorry! Let's try again."
+                    play
+                end
             else
                 puts "Please type an appropriate language!"
                 input_lan= gets.strip.capitalize
                 if all_language.include?(input_lan)
-                    print_appropriate_language(input_loc,input_lan)
+                    if check?(input_loc,input_lan)
+                            print_appropriate_language(input_loc,input_lan)
+                    else
+                            puts "Job is not available for this particular selection,sorry! Let's try again."
+                            play
+                    end
                     
                 else
                     puts "Please type an appropriate language!"
@@ -144,7 +150,14 @@ attr_accessor :all_location, :all_language ,:indx
                         puts "Please type an appropriate language!"
                         input_lan= gets.strip.capitalize
                     end
-                    print_appropriate_language(input_loc,input_lan)
+
+                    if check?(input_loc,input_lan)
+                        print_appropriate_language(input_loc,input_lan)
+                    else
+                            puts "Job is not available for this particular selection,sorry! Let's try again."
+                            play
+                    end
+                    
     
                 end 
                 
@@ -158,7 +171,32 @@ attr_accessor :all_location, :all_language ,:indx
 
     end
 
+
+
+    def check?(location,language)
+        Job.all.sort_by{|name|name.title}.any? do |job|
+            job.location == location && job.description.include?(language)
+        end
+
+    end
+
+
+
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
