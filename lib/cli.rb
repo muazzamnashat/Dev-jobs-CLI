@@ -149,7 +149,7 @@ attr_accessor :all_location, :all_language ,:job_number
             if all_language.include?(input_lan)  
                 print_only_when_match(input_loc,input_lan)
             else
-                puts "Please type an appropriate language!"
+                puts "Please type an appropriate language!".colorize(:red)
                 input_lan= gets.strip.capitalize
                 if input_lan == "Exit"
                     abort "Thank you for using the app!".colorize(:blue)
@@ -157,7 +157,7 @@ attr_accessor :all_location, :all_language ,:job_number
                 if all_language.include?(input_lan)
                     print_only_when_match(input_loc,input_lan)
                 else
-                    puts "Please type an appropriate language!"
+                    puts "Please type an appropriate language!".colorize(:red)
                     input_lan= gets.strip.capitalize
                     if input_lan == "Exit"
                         abort "Thank you for using the app!".colorize(:blue)
