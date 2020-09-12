@@ -6,9 +6,7 @@ def all_locations
     @all_location = []
     API.get_list
     Job.all.each do |job|
-        
-        @all_location << job.location.capitalize
-        
+        @all_location << job.location.capitalize  
     end
     @all_location.uniq
 end
@@ -19,7 +17,6 @@ def print_locations
     end
     
 end
-
 
 def all_languages
     @all_language = []
@@ -51,7 +48,7 @@ end
 
 def print_by_location_and_language(location,language)
     @job_number = []
-    Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
+    Job.all.sort_by{|job_instance|job_instance.title}.each.with_index(1) do |job,index|
         if job.location == location && job.description.include?(language)
             job_number << index
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
@@ -69,7 +66,7 @@ def print_by_location_and_language(location,language)
 end
 
 def read_description(num)
-    Job.all.sort_by{|name|name.title}.each.with_index(1) do |job,index|
+    Job.all.sort_by{|job_instance|job_instance.title}.each.with_index(1) do |job,index|
         if index == num
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
@@ -82,7 +79,6 @@ def read_description(num)
 end
 
 def print_appropriate_language(input_loc,input_lan)
-
     puts "The list is loading please wait"
             print_by_location_and_language(input_loc,input_lan)
             puts "To read job description, select the job number"
