@@ -41,8 +41,8 @@ def all_languages
 end
 
 def print_languages
-    all_languages.each.with_index(1) do |lan,index|
-        puts "#{index}. #{lan}."
+    all_languages.each.with_index(1) do |language,index|
+        puts "#{index}. #{language}."
     end   
 end
 
@@ -70,7 +70,7 @@ def read_description(num)
         if index == num
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
-            puts "#{job.description}".gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>','<strong>','</strong>']), ' ')
+            puts "#{job.description}".gsub(Regexp.union(['<p>','</p>','<ul>','</ul>','<li>','</li>','<strong>','</strong>',"<a>","</a>","<href>","</href>","<a","href=","<em>","</em>","  "]), '').strip
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
             puts "--------------------------------------------------------------------------------------------------------------------------------".colorize(:blue)
 
@@ -188,11 +188,6 @@ def play
 end
 
 end
-
-
-
-
-
 
 
 
