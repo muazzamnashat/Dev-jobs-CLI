@@ -80,28 +80,27 @@ end
 
 def print_appropriate_job_listing(input_loc,input_lan)
     puts "The list is loading please wait"
-            print_by_location_and_language(input_loc,input_lan)
-            puts "To read job description, select the job number"
-            input_jn = gets.strip
+    print_by_location_and_language(input_loc,input_lan)
+    puts "To read job description, select the job number"
+    input_jn = gets.strip
 
-            until job_number.include?(input_jn.to_i)
-                if input_jn.downcase == "exit"
-                    abort "Thank you for using the app!".colorize(:blue)
-                end
-                puts "Please select a valid number!".colorize(:red)
-                input_jn=gets.strip
-            end
+    until job_number.include?(input_jn.to_i)
+        if input_jn.downcase == "exit"
+            abort "Thank you for using the app!".colorize(:blue)
+        end
+        puts "Please select a valid number!".colorize(:red)
+        input_jn=gets.strip
+    end
 
-            read_description(input_jn.to_i)
-            puts "Do you want to search again? (y/n)"
-            input = gets.strip
+    read_description(input_jn.to_i)
+    puts "Do you want to search again? (y/n)"
+    input = gets.strip
 
-            if input.downcase == "y"
-                play
-            elsif input.downcase == "n"
-                puts "Thank you for using the app!".colorize(:blue)
-            end
-            
+    if input.downcase == "y"
+        play
+    elsif input.downcase == "n"
+        puts "Thank you for using the app!".colorize(:blue)
+    end       
 end
 
 def check?(location,language)
