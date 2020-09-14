@@ -158,7 +158,7 @@ def play
             end
         end
         print_only_when_match(input_loc,input_lan)
-            
+
     else
         puts "Please type an appropriate location!".colorize(:red)
         puts "The program is starting again!"
@@ -170,15 +170,3 @@ def play
 end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
