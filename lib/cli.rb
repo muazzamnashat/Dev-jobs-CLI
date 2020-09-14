@@ -146,16 +146,12 @@ def play
         puts "Please type your in favourite language."
         input_lan = gets.strip.capitalize
 
-        if input_lan == "Exit"
-            abort "Thank you for using the app!".colorize(:blue)
-        end
-
         until all_language.include?(input_lan)
-            puts "Please type an appropriate language!".colorize(:red)
-            input_lan = gets.strip.capitalize
             if input_lan == "Exit"
                 abort "Thank you for using the app!".colorize(:blue)
             end
+            puts "Please type an appropriate language!".colorize(:red)
+            input_lan = gets.strip.capitalize
         end
         print_only_when_match(input_loc,input_lan)
 
