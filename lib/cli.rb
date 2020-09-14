@@ -150,36 +150,46 @@ def play
             abort "Thank you for using the app!".colorize(:blue)
         end
 
-        if all_language.include?(input_lan)  
-            print_only_when_match(input_loc,input_lan)
-        else
+        until all_language.include?(input_lan)
             puts "Please type an appropriate language!".colorize(:red)
             input_lan = gets.strip.capitalize
             if input_lan == "Exit"
                 abort "Thank you for using the app!".colorize(:blue)
             end
-            if all_language.include?(input_lan)
-                print_only_when_match(input_loc,input_lan)
-            else
-                puts "Please type an appropriate language!".colorize(:red)
-                input_lan = gets.strip.capitalize
-                if input_lan == "Exit"
-                    abort "Thank you for using the app!".colorize(:blue)
-                end
-                until all_language.include?(input_lan)
-                    puts "Please type an appropriate language!".colorize(:red)
-                    input_lan = gets.strip.capitalize
-                    if input_lan == "Exit"
-                        abort "Thank you for using the app!".colorize(:blue)
-                    end
-                end
-                print_only_when_match(input_loc,input_lan)
-            end 
-            
         end
+        print_only_when_match(input_loc,input_lan)
+
+        # if all_language.include?(input_lan)  
+        #     print_only_when_match(input_loc,input_lan)
+        # else
+        #     puts "Please type an appropriate language!".colorize(:red)
+        #     input_lan = gets.strip.capitalize
+        #     if input_lan == "Exit"
+        #         abort "Thank you for using the app!".colorize(:blue)
+        #     end
+        #     if all_language.include?(input_lan)
+        #         print_only_when_match(input_loc,input_lan)
+        #     else
+        #         puts "Please type an appropriate language!".colorize(:red)
+        #         input_lan = gets.strip.capitalize
+        #         if input_lan == "Exit"
+        #             abort "Thank you for using the app!".colorize(:blue)
+        #         end
+        #         until all_language.include?(input_lan)
+        #             puts "Please type an appropriate language!".colorize(:red)
+        #             input_lan = gets.strip.capitalize
+        #             if input_lan == "Exit"
+        #                 abort "Thank you for using the app!".colorize(:blue)
+        #             end
+        #         end
+        #         print_only_when_match(input_loc,input_lan)
+        #     end 
+            
+        # end
         
     else
         puts "Please type an appropriate location!".colorize(:red)
+        puts "The program is starting again!"
         sleep(3)
         play
         
