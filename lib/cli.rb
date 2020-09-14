@@ -1,6 +1,6 @@
 class CLI
 
-attr_accessor :all_location, :all_language ,:job_number
+attr_reader :all_location, :all_language ,:job_number
 
 def all_locations
     @all_location = []
