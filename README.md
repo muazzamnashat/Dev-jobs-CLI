@@ -8,7 +8,7 @@ Job Search CLI uses the GitHub Jobs API and shows software engineering jobs acco
 
 First, clone the repo. Then, type "./bin/run" to run the program!
 
-##License
+## License
 
 
 Copyright 2020 Muazzam Nashat
