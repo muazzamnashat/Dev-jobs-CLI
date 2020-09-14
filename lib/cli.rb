@@ -155,8 +155,8 @@ def play
         print_only_when_match(input_loc,input_lan)
 
     else
-        puts "Please type an appropriate location!".colorize(:red)
-        puts "The program is starting again!"
+        puts "Only the locations you see on the list are allowed!".colorize(:red)
+        puts "The program is starting again.Please don't write anything now!".colorize(:red)
         sleep(3)
         play
         
