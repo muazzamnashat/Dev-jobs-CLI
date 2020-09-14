@@ -78,7 +78,7 @@ def read_description(num)
     end
 end
 
-def print_appropriate_language(input_loc,input_lan)
+def print_appropriate_job_listing(input_loc,input_lan)
     puts "The list is loading please wait"
             print_by_location_and_language(input_loc,input_lan)
             puts "To read job description, select the job number"
@@ -112,7 +112,7 @@ end
 
 def print_only_when_match(input_loc,input_lan)
     if check?(input_loc,input_lan)
-        print_appropriate_language(input_loc,input_lan)
+        print_appropriate_job_listing(input_loc,input_lan)
     else
         puts "Job is not available for this particular selection,sorry! Let's try again.".colorize(:red)
         sleep(3)
